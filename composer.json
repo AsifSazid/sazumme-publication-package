@@ -1,0 +1,33 @@
+{
+            "name": "sazumme/publication",
+            "type": "library",
+            "description": "This package is made for the SazUmme Publication Site.",
+            "keywords": [
+                "Laravel"
+            ],
+            "authors": [
+                   {
+                    "name": "SazUmme",
+                    "email": "info@sazumme.com",
+                    "homepage": "www.sazumme.com"
+                    }
+            ],
+            "autoload": {
+                "psr-4": {
+                    "SazUmme\\Publication\\": "src/"
+                }
+            },
+            "autoload-dev": {},
+           
+            "extra": {
+                "copyright": "www.sazumme.com",
+                "laravel": {
+                    "providers": [
+                        "SazUmme\\Publication\\PublicationServiceProvider"
+                    ],
+                    "aliases": {}
+                } 
+            },
+            "version":"1.0.0",
+            "license": "MIT"
+        }
