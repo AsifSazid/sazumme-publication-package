@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Book Store</title>
+    <title>SazVerse Publication</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #ffffff;
-            --secondary-color: #89c4e6;
+            --secondary-color: #1d86c2;
             --footer-color: #010717;
         }
 
@@ -23,14 +23,14 @@
         }
 
         .btn-primary {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
+            background-color: linear-gradient(195deg, #89c4e6 0%, #42b9ff 100%);
+            border-color: transparent;
             color: #fff;
         }
 
         .btn-primary:hover {
-            background-color: #6fb2dc;
-            border-color: #6fb2dc;
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
             color: #fff;
         }
 
@@ -124,7 +124,7 @@
     <header class="py-3 border-bottom shadow-sm">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
-                <h1 class="h4 text-dark mb-0">E-Book Store</h1>
+                <h1 class="h4 text-dark mb-0">SazVerse Publication</h1>
                 <div class="collapse d-md-flex flex-md-row gap-3 align-items-center" id="navbarContentFullScreen">
                     <nav class="nav flex-column flex-md-row">
                         <a class="nav-link text-dark" href="#">Home</a>
@@ -137,7 +137,7 @@
                             aria-label="Search">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </form>
-                    <a href="#" class="btn btn-primary">Login</a>
+                    <a href="{{route('login')}}" class="btn btn-primary">Login</a>
                 </div>
                 <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarContent">
@@ -154,7 +154,8 @@
                 </nav>
                 <form class="d-flex flex-row" role="search">
                     <div class="col-9 me-2">
-                        <input class="form-control me-2" type="search" placeholder="Search books..." aria-label="Search">
+                        <input class="form-control me-2" type="search" placeholder="Search books..."
+                            aria-label="Search">
                     </div>
                     <div class="col-3">
                         <button class="btn btn-primary" type="submit">Search</button>
@@ -220,72 +221,54 @@
         <div class="container">
             <h2 class="mb-4 text-center">Our New Books</h2>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card">
                         <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Book 1">
                         <div class="card-body">
                             <h5 class="card-title">Book Title 1</h5>
                             <p class="card-text">Short description of the book.</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="#" class="btn btn-primary">View Details</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="#" class="btn btn-outline-primary w-100">Buy Now</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card">
                         <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Book 2">
                         <div class="card-body">
                             <h5 class="card-title">Book Title 2</h5>
                             <p class="card-text">Short description of the book.</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="#" class="btn btn-primary">View Details</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="#" class="btn btn-outline-primary w-100">Buy Now</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card">
                         <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Book 3">
                         <div class="card-body">
                             <h5 class="card-title">Book Title 3</h5>
                             <p class="card-text">Short description of the book.</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- New Books Section -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="mb-4 text-center">Our New Books</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Book 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Book Title 1</h5>
-                            <p class="card-text">Short description of the book.</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Book 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Book Title 2</h5>
-                            <p class="card-text">Short description of the book.</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Book 3">
-                        <div class="card-body">
-                            <h5 class="card-title">Book Title 3</h5>
-                            <p class="card-text">Short description of the book.</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="#" class="btn btn-primary">View Details</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="#" class="btn btn-outline-primary w-100">Buy Now</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -357,7 +340,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <h5>E-Book Store</h5>
+                    <h5>SazVerse Publication</h5>
                     <p>Read your favorite books anytime, anywhere. Explore thousands of titles.</p>
                     <div>
                         <a href="#" class="text-white me-3">Facebook</a>
@@ -381,7 +364,7 @@
                 </div>
             </div>
             <div class="text-center footer-bottom">
-                <p class="mb-0">&copy; 2025 SazUmme E-Book Store. All rights reserved.</p>
+                <p class="mb-0">&copy; 2025 SazVerse Publication. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -390,7 +373,8 @@
         <a href="https://wa.me/8801234567890" target="_blank">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                 class="bi bi-whatsapp" viewBox="0 0 16 16">
-                <path d="M13.601 2.326a7.875 7.875 0 0 0-11.194 0 7.875 7.875 0 0 0-1.97 8.049L.07 15.927l5.656-1.48a7.875 7.875 0 0 0 7.875-12.121zM8.075 13.37a6.236 6.236 0 0 1-3.365-.979l-.242-.146-3.347.877.892-3.26-.158-.27a6.225 6.225 0 1 1 11.383-1.987 6.225 6.225 0 0 1-5.163 5.765zm3.578-4.745c-.198-.099-1.17-.577-1.351-.642-.18-.066-.312-.099-.444.099-.132.198-.51.642-.624.774-.115.132-.23.148-.429.05-.198-.099-.837-.308-1.594-.984a5.93 5.93 0 0 1-1.099-1.35c-.116-.198-.012-.305.087-.403.089-.088.198-.23.297-.346.099-.115.132-.198.198-.33.066-.132.033-.248-.017-.347-.05-.099-.444-1.072-.609-1.47-.16-.384-.323-.332-.444-.338a.73.73 0 0 0-.396.033c-.132.066-.347.132-.53.33-.182.198-.694.678-.694 1.653s.71 1.918.81 2.05c.099.132 1.397 2.134 3.392 2.992.474.204.843.326 1.131.417.475.15.91.129 1.253.078.382-.057 1.17-.478 1.336-.939.165-.462.165-.857.116-.939-.05-.082-.182-.132-.38-.231z" />
+                <path
+                    d="M13.601 2.326a7.875 7.875 0 0 0-11.194 0 7.875 7.875 0 0 0-1.97 8.049L.07 15.927l5.656-1.48a7.875 7.875 0 0 0 7.875-12.121zM8.075 13.37a6.236 6.236 0 0 1-3.365-.979l-.242-.146-3.347.877.892-3.26-.158-.27a6.225 6.225 0 1 1 11.383-1.987 6.225 6.225 0 0 1-5.163 5.765zm3.578-4.745c-.198-.099-1.17-.577-1.351-.642-.18-.066-.312-.099-.444.099-.132.198-.51.642-.624.774-.115.132-.23.148-.429.05-.198-.099-.837-.308-1.594-.984a5.93 5.93 0 0 1-1.099-1.35c-.116-.198-.012-.305.087-.403.089-.088.198-.23.297-.346.099-.115.132-.198.198-.33.066-.132.033-.248-.017-.347-.05-.099-.444-1.072-.609-1.47-.16-.384-.323-.332-.444-.338a.73.73 0 0 0-.396.033c-.132.066-.347.132-.53.33-.182.198-.694.678-.694 1.653s.71 1.918.81 2.05c.099.132 1.397 2.134 3.392 2.992.474.204.843.326 1.131.417.475.15.91.129 1.253.078.382-.057 1.17-.478 1.336-.939.165-.462.165-.857.116-.939-.05-.082-.182-.132-.38-.231z" />
             </svg>
             Chat with us
         </a>

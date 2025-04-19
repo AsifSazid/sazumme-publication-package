@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 
 use SazUmme\Publication\Http\Controllers\PublicationController;
+use SazUmme\Publication\Http\Controllers\EbookController;
 //use namespace
 
 // Route::group(['middleware' => 'web'], function () {
@@ -22,4 +23,13 @@ use SazUmme\Publication\Http\Controllers\PublicationController;
 
 Route::domain('ebook.sazumme-tech-laravel.test')->group(function () {
 	Route::get('/', [PublicationController::class, 'index'])->name('publication.landing');
+
+	Route::middleware(['web'])->group(function(){
+		Route::resources([
+			// admin panel er jonno
+			'ebooks' => EbookController::class,
+		]);
+
+		Route::get('/my-ebooks', [EbookController::class, 'myEbooks'])->name('ebooks.my-ebooks');
+	});
 });

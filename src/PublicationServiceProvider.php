@@ -49,6 +49,9 @@ class PublicationServiceProvider extends ServiceProvider
         \Illuminate\Support\Facades\Blade::component('sp-backend-breadcrumb', \SazUmme\Publication\App\View\Components\backend\Layouts\Partials\Breadcrumb::class);
         \Illuminate\Support\Facades\Blade::component('sp-backend-title', \SazUmme\Publication\App\View\Components\backend\Layouts\Partials\Title::class);
         \Illuminate\Support\Facades\Blade::component('sp-backend-favicon', \SazUmme\Publication\App\View\Components\backend\Layouts\Partials\Favicon::class);
+        
+        
+        \Illuminate\Support\Facades\Blade::component('sp-backend-aside', \SazUmme\Publication\App\View\Components\backend\Layouts\Partials\Aside::class);
     }
     
     public function register() {}
