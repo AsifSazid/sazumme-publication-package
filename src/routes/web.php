@@ -24,7 +24,8 @@ use SazUmme\Publication\Http\Controllers\EbookController;
 Route::domain('ebook.sazumme-tech-laravel.test')->group(function () {
 	Route::get('/', [PublicationController::class, 'index'])->name('publication.landing');
 
-	Route::middleware(['web'])->group(function(){
+	// Route::middleware(['web', 'auth'])->group(function(){
+	Route::middleware(['web'])->group(function(){ //testing purpose
 		Route::resources([
 			// admin panel er jonno
 			'ebooks' => EbookController::class,
