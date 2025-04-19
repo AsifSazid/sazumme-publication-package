@@ -73,7 +73,7 @@
     </div>
 
 
-    <x-sp-backend-js />
+    
 </body>
 
 </html>

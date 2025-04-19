@@ -13,6 +13,10 @@ class PublicationServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'publication');
 
+        $this->publishes([
+            __DIR__.'/../publishable/assets' => public_path('vendor/publication'),
+        ], 'public');
+
         $this->commands([
             ##InstallationCommandClass##
         ]);
