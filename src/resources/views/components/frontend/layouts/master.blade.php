@@ -341,7 +341,7 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <h5>SazVerse Publication</h5>
-                    <p>Read your favorite books anytime, anywhere. Explore thousands of titles.</p>
+                    <p>Read your favorite books anytime, anywhere. Explore thousands of titles. A sister concern of SazUmme.</p>
                     <div>
                         <a href="#" class="text-white me-3">Facebook</a>
                         <a href="#" class="text-white me-3">Twitter</a>
@@ -360,7 +360,7 @@
                     <h5>Contact Us</h5>
                     <p>123, Book Street, Knowledge City</p>
                     <p>Email: support@sazumme.com</p>
-                    <p>Phone: +880 1234 567890</p>
+                    <p>Phone: +880 1684 576 384</p>
                 </div>
             </div>
             <div class="text-center footer-bottom">

@@ -21,8 +21,10 @@ use SazUmme\Publication\Http\Controllers\EbookController;
 // //Place your route here
 // });
 
+// Route::domain('publication.sazumme.com')->group(function () {
 Route::domain('ebook.sazumme-tech-laravel.test')->group(function () {
 	Route::get('/', [PublicationController::class, 'index'])->name('publication.landing');
+	Route::get('/about-us', [PublicationController::class, 'aboutUs'])->name('publication.about-us');
 
 	// Route::middleware(['web', 'auth'])->group(function(){
 	Route::middleware(['web'])->group(function(){ //testing purpose
