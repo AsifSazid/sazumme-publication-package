@@ -22,7 +22,7 @@ use SazUmme\Publication\Http\Controllers\EbookController;
 // });
 
 // Route::domain('publication.sazumme.com')->group(function () {
-Route::domain('ebook.sazumme-tech-laravel.test')->group(function () {
+Route::domain('publication.sazumme-tech-laravel.test')->group(function () {
 	Route::get('/', [PublicationController::class, 'index'])->name('publication.landing');
 	Route::get('/about-us', [PublicationController::class, 'aboutUs'])->name('publication.about-us');
 
