@@ -2,12 +2,31 @@
 
 namespace SazUmme\Publication;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class PublicationServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        View::composer('*', function ($view) {
+            $host = request()->getHost();
+            $parts = explode('.', $host);
+            $subdomain = count($parts) > 2 ? $parts[0] : null;
+
+            $companyNames = [
+                'publication' => 'SazVerse Publication',
+                // 'sub_two' => 'Company Two',
+                // 'sub_three' => 'Company Three',
+            ];
+
+            $companyName = $companyNames[$subdomain] ?? 'SazUmme Technology';
+
+            $view->with('companyName', $companyName);
+            $view->with('subdomain', $subdomain);
+        });
+
+        
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/routes/api.php');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');

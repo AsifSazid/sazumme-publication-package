@@ -120,6 +120,10 @@
 </head>
 
 <body>
+    {{-- <pre>
+        Auth check: {{ Auth::check() ? 'YES' : 'NO' }}
+        User ID: {{ optional(Auth::user())->id }}
+    </pre> --}}
     <!-- Header -->
     <header class="py-3 border-bottom shadow-sm">
         <div class="container">
@@ -137,7 +141,14 @@
                             aria-label="Search">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </form>
-                    <a href="{{route('login')}}" class="btn btn-primary">Login</a>
+
+                    @auth
+                        <a href="{{ route('user.dashboard', ['subdomain' => $subdomain]) }}"
+                            class="btn btn-primary">Dashboard</a>
+                    @else
+                        <a href="{{ route('user.login', ['subdomain' => $subdomain]) }}"
+                            class="btn btn-primary">Login</a>
+                    @endauth
                 </div>
                 <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarContent">
@@ -161,7 +172,13 @@
                         <button class="btn btn-primary" type="submit">Search</button>
                     </div>
                 </form>
-                <a href="#" class="btn btn-primary ms-md-3">Login</a>
+                @auth
+                    <a href="{{ route('user.dashboard', ['subdomain' => $subdomain]) }}"
+                        class="btn btn-primary ms-md-3">Dashboard</a>
+                @else
+                    <a href="{{ route('user.login', ['subdomain' => $subdomain]) }}"
+                        class="btn btn-primary ms-md-3">Login</a>
+                @endauth
             </div>
         </div>
     </header>
@@ -341,7 +358,8 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <h5>SazVerse Publication</h5>
-                    <p>Read your favorite books anytime, anywhere. Explore thousands of titles. A sister concern of SazUmme.</p>
+                    <p>Read your favorite books anytime, anywhere. Explore thousands of titles. A sister concern of
+                        SazUmme.</p>
                     <div>
                         <a href="#" class="text-white me-3">Facebook</a>
                         <a href="#" class="text-white me-3">Twitter</a>

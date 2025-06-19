@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 use Illuminate\Support\Facades\Route;
 
 use SazUmme\Publication\Http\Controllers\PublicationController;
@@ -23,11 +24,10 @@ use SazUmme\Publication\Http\Controllers\EbookController;
 
 // Route::domain('publication.sazumme.com')->group(function () {
 Route::domain('publication.sazumme-tech-laravel.test')->group(function () {
-	Route::get('/', [PublicationController::class, 'index'])->name('publication.landing');
-	Route::get('/about-us', [PublicationController::class, 'aboutUs'])->name('publication.about-us');
-
-	// Route::middleware(['web', 'auth'])->group(function(){
-	Route::middleware(['web'])->group(function(){ //testing purpose
+	Route::middleware(['web'])->group(function () {
+		Route::get('/', [PublicationController::class, 'index'])->name('publication.landing');
+		Route::get('/about-us', [PublicationController::class, 'aboutUs'])->name('publication.about-us');
+		// Route::middleware(['auth'])->group(function(){
 		Route::resources([
 			// admin panel er jonno
 			'ebooks' => EbookController::class,
