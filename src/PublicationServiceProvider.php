@@ -26,6 +26,9 @@ class PublicationServiceProvider extends ServiceProvider
             $view->with('subdomain', $subdomain);
         });
 
+        if (app()->environment('local')) {
+            \URL::forceRootUrl(config('app.url'));
+        }
         
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/routes/api.php');

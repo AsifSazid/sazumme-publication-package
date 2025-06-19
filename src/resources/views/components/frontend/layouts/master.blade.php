@@ -369,6 +369,7 @@
                 <div class="col-md-4 mb-4">
                     <h5>Important Links</h5>
                     <ul class="list-unstyled">
+                        <li><a href="{{route('welcome')}}" class="text-white" target="_blank">SazUmme Technology</a></li>
                         <li><a href="#" class="text-white">Privacy Policy</a></li>
                         <li><a href="#" class="text-white">Terms & Conditions</a></li>
                         <li><a href="#" class="text-white">FAQ</a></li>
