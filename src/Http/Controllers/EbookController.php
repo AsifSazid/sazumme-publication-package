@@ -11,6 +11,6 @@ class EbookController extends PublicationBaseController
 
     public function myEbooks()
     {
-        return null;
+        return view('publication::backend.ebooks.my-ebooks');
     }
 }
