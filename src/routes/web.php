@@ -28,10 +28,10 @@ Route::domain('publication.sazumme-tech-laravel.test')->group(function () {
 		Route::get('/', [PublicationController::class, 'index'])->name('publication.landing');
 		Route::get('/about-us', [PublicationController::class, 'aboutUs'])->name('publication.about-us');
 		// Route::middleware(['auth'])->group(function(){
-		Route::resources([
+		// Route::resources([
 			// admin panel er jonno
-			'ebooks' => EbookController::class,
-		]);
+			// 'ebooks' => EbookController::class,
+		// ]);
 
 		Route::get('/my-ebooks', [EbookController::class, 'myEbooks'])->name('ebooks.my-ebooks');
 	});
