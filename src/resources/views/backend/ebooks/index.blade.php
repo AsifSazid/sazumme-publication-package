@@ -1,134 +1,162 @@
-{{-- <x-app-layout> --}}
-<x-sb-admin-master>   
+<x-sb-admin-master>
     <x-slot name="header">
         <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6 dark:border-primary-darker">
-            <h1 class="text-2xl font-semibold">{{ __('Dashboard') }}</h1>
+            <h2 class="text-2xl font-semibold">{{ __('Ebook Lists') }}</h2>
+            <a href="{{ route('admin.ebooks.create') }}" class="text-green-500 hover:text-green-700 mx-1"
+                title="Create"><i class="fas fa-plus"></i> Create New</a>
         </div>
     </x-slot>
 
-    <!-- State cards -->
-    <div class="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 xl:grid-cols-4">
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <div class="overflow-x-auto">
+                        <input id="searchInput"
+                            class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                            placeholder="Search for anything..." type="text" name="search">
+                        <!-- Table -->
+                        <table id="ebookTable" class="w-full table-striped table-bordered text-sm mt-4">
+                            <thead class="bg-gray-100 text-gray-700 uppercase">
+                                <tr>
+                                    <th class="px-6 py-4">Sl No.</th>
+                                    <th class="px-6 py-4">Ebook Title</th>
+                                    <th class="px-6 py-4">Author</th>
+                                    <th class="px-6 py-4">Price</th>
+                                    <th class="px-6 py-4">Total Page</th>
+                                    <th class="px-6 py-4">Activity</th>
+                                    <th class="px-6 py-4">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ebookTableBody" class="text-center">
+                                <!-- JS will inject rows here -->
+                            </tbody>
+                        </table>
 
-        <!-- My Ebook card -->
-        <div class="flex items-center justify-between p-4 bg-white rounded-md dark:bg-darker">
-            <div>
-                <h6
-                    class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
-                    My Ebook/s
-                </h6>
-                <span class="text-xl font-semibold">1</span>
-                {{-- <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-                    +3.1%
-                </span> --}}
-            </div>
-            <div>
-                <span>
-                    <svg class="w-12 h-12 text-gray-300 dark:text-primary-dark" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <!-- Pagination + Actions -->
+                        <div class="mt-4 px-6">
+                            <div id="paginationLinks" class="flex justify-center mb-4"></div>
 
-                        <!-- Outer circle -->
-                        <circle cx="12" cy="12" r="9" stroke-width="2" stroke="currentColor"
-                            fill="none" />
+                            <div
+                                class="px-4 py-2 bg-gray-100 border-t text-sm text-gray-500 flex justify-between items-center">
+                                <a href="{{ route('admin.ebooks.trash') }}"
+                                    class="text-red-500 hover:text-red-700 mx-1" title="Trash Lists">
+                                    <i class="fas fa-trash-alt"></i> Trash Lists
+                                </a>
+                                <a id="downloadPdfBtn" class="text-blue-500 hover:text-blue-700 mx-1 cursor-pointer"
+                                    title="Download as PDF">
+                                    <i class="fa-solid fa-download"></i>
+                                </a>
+                            </div>
+                        </div>
 
-                        <!-- Checkmark -->
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12l2.5 2.5L16 9" />
-                    </svg>
-
-                </span>
-            </div>
-        </div>
-
-        <!-- Ebook Reading Completion card -->
-        <div class="flex items-center justify-between p-4 bg-white rounded-md dark:bg-darker">
-            <div>
-                <h6
-                    class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
-                    Ebook Reading Completed
-                </h6>
-                <span class="text-xl font-semibold">0</span>
-                {{-- <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-                    0
-                </span> --}}
-            </div>
-            <div>
-                <span>
-                    <svg class="w-12 h-12 text-gray-300 dark:text-primary-dark" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <!-- Book Icon -->
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M6 4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v-1H6V5h11v8h1V6c0-1.1-.9-2-2-2H6z" />
-                        <rect x="8" y="8" width="7" height="2" rx="1" stroke="currentColor"
-                            stroke-width="1" />
-
-                        <!-- Circled Check Mark -->
-                        <circle cx="18" cy="18" r="3.2" stroke="currentColor" stroke-width="1"
-                            fill="none" />
-                        <path d="M16.8 18l1 1 2-2" stroke="currentColor" stroke-width="1" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-
-                </span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Amount Spent for Ebook -->
-        <div class="flex items-center justify-between p-4 bg-white rounded-md dark:bg-darker">
-            <div>
-                <h6
-                    class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
-                    Amount Spent
-                </h6>
-                <span class="text-xl font-semibold">$1.20</span>
-                {{-- <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-                    +4.4%
-                </span> --}}
-            </div>
-            <div>
-                <span>
-                    <svg class="w-12 h-12 text-gray-300 dark:text-primary-dark" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </span>
-            </div>
-        </div>
 
-        <!-- Other Available Ebooks card -->
-        <div class="flex items-center justify-between p-4 bg-white rounded-md dark:bg-darker">
-            <div>
-                <h6
-                    class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
-                    Other Available Ebooks
-                </h6>
-                <span class="text-xl font-semibold">2</span>
-                {{-- <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-                    +3.1%
-                </span> --}}
-            </div>
-            <div>
-                <span>
-                    <svg class="w-12 h-12 text-gray-300 dark:text-primary-dark" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <!-- Book shape -->
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 6a1 1 0 011-1c3 0 5 .5 8 2 3-1.5 5-2 8-2a1 1 0 011 1v12a1 1 0 01-1 1c-3 0-5 .5-8 2-3-1.5-5-2-8-2a1 1 0 01-1-1V6z" />
+        @push('js')
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const input = document.getElementById("searchInput");
+                    const tableBody = document.getElementById("ebookTableBody");
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    const formatDateTime = (dateStr) => {
+                        const date = new Date(dateStr);
+                        return date.toLocaleString('en-GB', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false,
+                            timeZone: 'UTC'
+                        }).replace(',', ' ||');
+                    };
 
-                        <!-- Center spine line -->
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7v10" />
+                    const fetchEbooks = async (search = '', page = 1) => {
+                        try {
+                            const response = await fetch(
+                                `{{ route('admin.ebooks.getData') }}?search=${search}&page=${page}`);
+                            const result = await response.json();
+                            renderTable(result.data);
+                            renderPagination(result, search);
+                        } catch (error) {
+                            console.error("Error fetching ebooks:", error);
+                        }
+                    };
 
-                        <!-- Left page text lines (shifted left) -->
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5.5 9h3M5.5 12h2.5M5.5 15h3" />
+                    const renderTable = (ebooks) => {
+                        tableBody.innerHTML = "";
+                        if (ebooks.length === 0) {
+                            tableBody.innerHTML =
+                                `<tr><td colspan="7" class="py-4 text-center text-gray-500">No ebooks found</td></tr>`;
+                            return;
+                        }
 
-                        <!-- Right page text lines (shifted right) -->
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15.5 9h3M16 12h2M15.5 15h3" />
-                    </svg>
-                </span>
-            </div>
-        </div>
-    </div>
-    
+                        ebooks.forEach((ebook, index) => {
+                            const row = `
+                        <tr>
+                            <td class="px-6 py-4">${index + 1}</td>
+                            <td class="px-6 py-4">${ebook.title}</td>
+                            <td class="px-6 py-4">${ebook.author}</td>
+                            <td class="px-6 py-4">${}</td>
+                            <td class="px-6 py-4">${}</td>
+                            <td class="px-6 py-4">${ebook.is_active ? 'Active' : 'Inactive'}</td>
+                            <td class="px-6 py-4">
+                                <div class="flex justify-center">
+                                    <a href="/admin/ebooks/${ebook.uuid}" class="px-1 text-blue-500 hover:text-blue-700" title="View"><i class="fas fa-eye"></i></a>
+                                    <a href="/admin/ebooks/${ebook.uuid}/edit" class="px-1 text-yellow-500 hover:text-yellow-700" title="Edit"><i class="fas fa-edit"></i></a>
+                                    <form action="/admin/ebooks/${ebook.uuid}" method="POST" onsubmit="return confirm('Move to trash?')">
+                                        <input type="hidden" name="_token" value="${csrfToken}">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="px-1 text-red-500 hover:text-red-700" title="Destroy">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                            tableBody.insertAdjacentHTML('beforeend', row);
+                        });
+                    };
+
+                    const renderPagination = (data, search) => {
+                        const paginationDiv = document.getElementById("paginationLinks");
+                        paginationDiv.innerHTML = "";
+
+                        if (data.last_page <= 1) return;
+
+                        for (let i = 1; i <= data.last_page; i++) {
+                            const btn = document.createElement("button");
+                            btn.innerText = i;
+                            btn.className =
+                                `mx-1 px-3 py-1 rounded ${i === data.current_page ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`;
+                            btn.addEventListener("click", () => fetchEbooks(search, i));
+                            paginationDiv.appendChild(btn);
+                        }
+                    };
+
+                    // Initial load
+                    fetchEbooks();
+
+                    // Search input listener
+                    input.addEventListener("input", (e) => {
+                        const searchTerm = e.target.value.trim();
+                        fetchEbooks(searchTerm, 1); // reset to page 1 on new search
+                    });
+
+                    document.getElementById("downloadPdfBtn").addEventListener("click", () => {
+                        const search = document.getElementById("searchInput").value.trim();
+                        let url = `{{ route('admin.ebooks.download.pdf') }}`;
+                        if (search) {
+                            url += `?search=${encodeURIComponent(search)}`;
+                        }
+                        window.open(url, "_blank");
+                    });
+                });
+            </script>
+        @endpush
 </x-sb-admin-master>
-{{-- </x-app-layout> --}}

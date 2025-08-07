@@ -2,8 +2,12 @@
 
 namespace SazUmme\Publication\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Tag;
 use SazUmme\Publication\Models\Ebook;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EbookController extends PublicationBaseController
 {
@@ -14,59 +18,79 @@ class EbookController extends PublicationBaseController
 
     public function index()
     {
-        $user = Auth::user();
-        $roleId = isset($user->roles['0']->id);
-        if ($roleId == 1) {
-            // dd('Admin');
-            $blogCollection = Ebook::latest();
-        } else {
-            // dd('Not Admin');
-            $blogCollection = Ebook::where('written_by_uuid', $user->uuid)->latest();
-        }
-        $ebooks = $blogCollection->paginate(10);
-        return view('publication::backend.admin.ebooks.index', compact('ebooks'));
+        return view('backend.ebooks.index');
     }
 
     public function create()
     {
-        return view('backend.ebooks.create');
+        $categories = Category::get();
+        $tags = Tag::get();
+        return view('backend.ebooks.create', compact('categories', 'tags'));
     }
 
     public function store(Request $request)
     {
-        $request['is_active'] = $request->has('is_active') ? 1 : 0;
-
         $request->validate([
-            'title' => 'required|string',
-            'body' => 'required|string',
-            'image' => 'nullable|image|max:2048',
-            'is_active' => 'nullable|boolean',
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'author' => 'required|string|max:255',
+            'cover_image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'ebook_file' => 'required|file|mimes:pdf,epub|max:51200', // 50MB max
+            'price' => 'required|numeric|min:0',
+            'page_count' => 'nullable|integer|min:1',
+            'category' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|array',
+            'tags.*' => 'exists:tags,id',
         ]);
+
+        DB::beginTransaction();
 
         try {
             $ebook = Ebook::create([
                 'uuid' => (string) \Str::uuid(),
                 'title' => $request->title,
-                'body' => $request->body,
-                'written_by' => Auth::user()->id,
-                'written_by_uuid' => Auth::user()->uuid,
+                'description' => $request->description,
+                'author' => $request->author,
+                'price' => $request->price,
+                'page_count' => $request->page_count,
                 'is_active' => $request->has('is_active'),
+                'created_by' => Auth::user()->id
             ]);
 
-            if ($request->hasFile('image')) {
-                $path = $request->file('image')->store('images', 'public');
+            // $ebook->categories()->attach($request->category); // Many-to-many
+
+            // if ($request->filled('tags')) {
+            //     $ebook->tags()->attach($request->tags);
+            // }
+
+            if ($request->hasFile('cover_image')) {
+                $imagePath = $request->file('cover_image')->store('ebooks/images', 'public');
 
                 $ebook->image()->create([
                     'uuid' => (string) \Str::uuid(),
-                    'url' => $path,
+                    'url' => $imagePath,
                 ]);
             }
 
+            if ($request->hasFile('ebook_file')) {
+                $filePath = $request->file('ebook_file')->store('ebooks/files', 'public');
+
+                $ebook->file()->create([
+                    'uuid' => (string) \Str::uuid(),
+                    'url' => $filePath,
+                ]);
+            }
+
+            DB::commit();
+
             return redirect()->route('admin.ebooks.index')->with('success', 'Ebook created successfully!');
-        } catch (\Throwable $th) {
-            dd($th);
+        } catch (\Exception $e) {
+            // dd($e);
+            DB::rollBack();
+            return back()->with('error', 'Something went wrong: ' . $e->getMessage());
         }
     }
+
 
     public function show($ebook)
     {
@@ -154,53 +178,35 @@ class EbookController extends PublicationBaseController
 
     public function getData(Request $request)
     {
-        $user = Auth::user();
-        $roleId = isset($user->roles['0']->id);
-        if ($roleId == 1) {
-            // dd('Admin');
-            $query = Ebook::where('is_active', '1')->with('user');
-        } else {
-            // dd('Not Admin');
-            $query = Ebook::where('written_by_uuid', $user->uuid)->with('user');
-        }
+        // $query = Ebook::with('creator');
+        $query = Ebook::query();
 
         if ($request->has('search') && !empty($request->search)) {
             $search = $request->search;
             $query->where('title', 'like', "%{$search}%");
         }
 
-        $ebooks = $query->orderBy('created_at', 'desc')->paginate(10);
+        $announcements = $query->orderBy('created_at', 'desc')->paginate(10);
 
-        return response()->json($ebooks);
+        return response()->json($announcements);
     }
 
     public function downloadPdf(Request $request)
     {
-        $header = "Ebook List(s)";
-
         $search = $request->get('search');
 
-        $user = Auth::user();
-        $roleId = isset($user->roles['0']->id);
-        if ($roleId == 1) {
-            // dd('Admin');
-            $query = Ebook::where('is_active', '1')->with('user');
-        } else {
-            // dd('Not Admin');
-            $query = Ebook::where('written_by_uuid', $user->uuid)->with('user');
-        }
+        $query = Ebook::query();
 
         if ($search) {
             $query->where('title', 'like', "%{$search}%");
-            $header = "Ebook List(s) - Filtered";
         }
 
-        $ebooks = $query->get();
+        $announcements = $query->get();
 
         $mpdf = new \Mpdf\Mpdf();
-        $mpdf->SetHeader("<div style='text-align:center'>{$header}</div>");
+        $mpdf->SetHeader("<div style='text-align:center'>Ebook List!</div>");
         $mpdf->SetFooter("This is a system generated document(s). So no need to show external signature or seal!");
-        $view = view('backend.ebooks.pdf', compact('ebooks'));
+        $view = view('backend.announcements.pdf', compact('announcements'));
         $mpdf->WriteHTML($view);
         $mpdf->Output();
     }
